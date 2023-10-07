@@ -1,11 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.jsx";
+import Hero from "../components/Home/Hero"
+import RecentBlogs from "../components/Home/RecentBlogs.astro"
+import Features from "../components/Home/Features";
 ---
 
 <Layout title="Welcome to Astro.">
-  <main>
-    <h1 class="text-3xl font-bold underline text-green-400">Hello world!</h1>
-    <Card />
+  <main class="w-full flex flex-col items-center justify-center">
+	<Hero />
+	<div class="container mx-auto">
+		<Features />
+	</div>
+	<div class="container mx-auto">
+		<RecentBlogs />
+	</div>
   </main>
 </Layout>
