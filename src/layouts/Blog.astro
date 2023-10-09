@@ -1,0 +1,35 @@
+---
+import Layout from "./Layout.astro";
+const { frontmatter, content } = Astro.props
+
+const {
+  title,
+  description,
+  pubdate,
+  tags,
+  heroImg,
+  author,
+  uuid,
+  authorImgLink,
+  authorHeadline,
+} = frontmatter
+
+---
+
+<Layout title={title}>
+    <div class=" max-w-[800px]  mx-auto text-white">
+        <header class="flex flex-col gap-2">
+            <img src={heroImg} width="100%" alt="" />
+            <div class="flex justify-between">
+              <p>Published on : {pubdate}</p>
+              <p>Author : {author}</p>
+            </div>
+            <h1>{title}</h1>
+          </header>
+          <div class="content" data-uuid={uuid}>
+            <slot />
+          </div>
+          <h1>Author</h1>
+    </div>
+</Layout>
+  

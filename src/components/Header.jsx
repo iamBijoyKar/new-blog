@@ -16,7 +16,6 @@ import { BsMenuButtonWideFill } from "react-icons/bs";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  console.log("open", open);
   return (
     <header className="flex justify-between items-center py-2 relative">
       <a href="/">

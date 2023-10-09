@@ -1,10 +1,35 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import RecentBlogs from "../components/Home/RecentBlogs.astro";
+import BlogPreview from "../components/Blog/BlogPreview";
+const Articles = (await Astro.glob('./blogs/*.{md,mdx}')).sort(
+  (a, b) =>
+    new Date(b.frontmatter.pubdate).valueOf() -
+    new Date(a.frontmatter.pubdate).valueOf()
+)
+
 ---
 
-<Layout title="Welcome to Astro.">
-  <main class="w-full flex flex-col items-center justify-center">
-	<RecentBlogs />
-  </main>
+<Layout title="Blogs - Bijoy Kar">
+  <div class="w-full flex flex-col items-center justify-center my-4">
+    <div class="flex flex-col gap-4">
+    {
+      Articles &&
+        Articles.map((article) => (
+          <a href={article.url}>
+            <BlogPreview
+              client:visible
+              uuid={article.frontmatter.uuid}
+              title={article.frontmatter.title}
+              description={article.frontmatter.description}
+              pubDate={article.frontmatter.pubdate}
+              tags={article.frontmatter.tags}
+              author={article.frontmatter.author}
+              url={article.url}
+              count={0}
+            />
+          </a>
+        ))
+    }
+    </div>
+  </div>
 </Layout>

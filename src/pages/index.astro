@@ -1,18 +1,49 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Home/Hero"
-import RecentBlogs from "../components/Home/RecentBlogs.astro"
 import Features from "../components/Home/Features";
+import BecomeAuthor from "../components/Home/BecomeAuthor";
+import BlogPreview from "../components/Blog/BlogPreview";
+const Article = (await Astro.glob('./blogs/*.{md,mdx}')).sort(
+  (a, b) =>
+    new Date(b.frontmatter.pubdate).valueOf() -
+    new Date(a.frontmatter.pubdate).valueOf()
+)
+const Articles = Article.slice(0, 3)
+console.log(Articles[0].url, typeof Articles[0].url)
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Home - Bijoy Kar">
   <main class="w-full flex flex-col items-center justify-center">
-	<Hero />
+	<Hero client:load />
 	<div class="container mx-auto">
-		<Features />
+		<Features client:load />
 	</div>
 	<div class="container mx-auto">
-		<RecentBlogs />
+		<h1 class="text-3xl font-bold text-center my-4 text-white">Latest Articles</h1>
+		<div class="flex flex-col gap-4 items-center">
+		{
+			Articles &&
+			  Articles.map((article) => (
+				<a href={article.url}>
+				  <BlogPreview
+					client:visible
+					uuid={article.frontmatter.uuid}
+					title={article.frontmatter.title}
+					description={article.frontmatter.description}
+					pubDate={article.frontmatter.pubdate}
+					tags={article.frontmatter.tags}
+					author={article.frontmatter.author}
+					url={article.url}
+					count={0}
+				  />
+				</a>
+			  ))
+		  }
+		  </div>
+	</div>
+	<div class="container mx-auto">
+		<BecomeAuthor client:visible />
 	</div>
   </main>
 </Layout>
