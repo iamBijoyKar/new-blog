@@ -1,7 +1,7 @@
 ---
 import Layout from "./Layout.astro";
 const { frontmatter, content } = Astro.props
-
+import AuthorBadge from "../components/Author/AuthorBadge.astro"
 const {
   title,
   description,
@@ -17,7 +17,7 @@ const {
 ---
 
 <Layout title={title}>
-    <div class=" max-w-[800px]  mx-auto text-white">
+    <div class=" max-w-[800px]  mx-auto text-white" id="blog">
         <header class="flex flex-col gap-2">
             <img src={heroImg} width="100%" alt="" />
             <div class="flex justify-between">
@@ -30,6 +30,20 @@ const {
             <slot />
           </div>
           <h1>Author</h1>
+            <AuthorBadge
+            authorName={author}
+            authorImgLink={authorImgLink}
+            headLine={authorHeadline}
+            authorProfileLink={`/authors/${author.replace(' ', '-')}`}
+            />
     </div>
 </Layout>
   
+<style>
+    .astro-code {
+        padding: 10px;
+    }
+    p{
+        margin: 10px 0;
+    }
+</style>

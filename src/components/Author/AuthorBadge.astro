@@ -1,0 +1,29 @@
+---
+export interface Props {
+  authorName: string
+  authorImgLink?: string
+  authorProfileLink?: string
+  headLine?: string
+}
+
+const {
+  authorName,
+  authorImgLink = '/man.png',
+  authorProfileLink = '',
+  headLine = 'Full Stack Developer',
+} = Astro.props
+---
+
+<a href={authorProfileLink} class="mb-4">
+  <div class="flex gap-3 bg-[#6499E9] w-fit p-2 rounded-lg">
+    <img src={authorImgLink} width="50" height="50" alt="" class="rounded-full" />
+    <div class="flex flex-col ">
+      <h2 class="text-xl font-bold">
+        {authorName}
+      </h2>
+      <p class="text-md ">
+        {headLine}
+      </p>
+    </div>
+  </div>
+</a>
